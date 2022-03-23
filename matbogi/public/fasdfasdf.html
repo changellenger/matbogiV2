@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+</head>
+<body>
+파이어베이스 실시간으로 웹페이지 연동하기 </br>
+Firebase + Realtime + Web
+<p id="demo">A Paragraph.</p>
+<pre id="object"></pre>
+<button type="button" onclick="myFunction()">데이터 쓰기</button>
+<button type="button" onclick="myFunction2()">데이터 읽기</button>
+<button type="button" id="loginbutton">로그인</button>
+
+<script type="module">
+
+    const loginbutton = document.getElementById('loginbutton');
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+    import {
+        getAuth,// authentication 설정
+        signInWithPopup, //google 로그인을 팝업창에 띄우기 위해
+        GoogleAuthProvider, //google login 기능
+        signInWithEmailAndPassword,// email 로그인
+        createUserWithEmailAndPassword, //email 회원가입
+    } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
+    const firebaseConfig = {
+        apiKey: "AIzaSyAPanua2hG5Q-XjzckMSzF-3X4bF764qtE",
+        authDomain: "matbogi.firebaseapp.com",
+        databaseURL: "https://matbogi-default-rtdb.firebaseio.com",
+        projectId: "matbogi",
+        storageBucket: "matbogi.appspot.com",
+        messagingSenderId: "83012819576",
+        appId: "1:83012819576:web:a5986bf66d7356bc2b6b8d",
+        measurementId: "G-JN6S4WWP0V"
+    };
+
+    //
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    firebase.initializeApp(firebaseConfig);
+
+    const auth = getAuth();
+
+
+    // 구글 인증 기능 추가
+    const provider = new GoogleAuthProvider();
+    export const loginGoogle = () => {
+        return signInWithPopup(auth, provider);
+    };
+
+</script>
+
+<script>
+    function myFunction() {
+        firebase.database().ref('matbogi-default-rtdb').push({
+            nickname: 'change',
+            result: '001',
+        })
+    }
+
+
+    function myFunction2() {
+        firebase.database().ref('matbogi-default-rtdb')
+            .once('value', function (snap) {
+                for (var i in snap.val()) {
+                    console.log(snap.val()[i])
+                }
+            })
+    }
+
+    loginbutton.addEventListener('click', (e) => {
+        loginGoogle().then((result) => {
+            console.log(result);
+            const user = result.user;
+            loginSuccess(user.email, user.uid);
+        });
+    });
+
+    const loginSuccess = (email, uid) => {
+
+        console.log("성공" + "++++"+ email + "++++" + uid);
+        const login_area = document.getElementById('login-area');
+        login_area.innerHTML = `<h2>Login 성공!</h2><div>uid: ${uid}</div><div>email: ${email}</div>`;
+    };
+
+
+</script>
+</body>
+</html>
