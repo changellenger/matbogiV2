@@ -1,66 +1,52 @@
 import Button from '@mui/material/Button'
 import { getDatabase , ref, set} from "firebase/database";
 import { GoogleAuthProvider } from "firebase/auth";
-import { getAuth, signInWithPopup,   signOut, signInWithRedirect , getRedirectResult  } from "firebase/auth";
+import { getAuth, signInWithPopup,   signOut, setPersistence, browserSessionPersistence, signInWithRedirect , getRedirectResult  } from "firebase/auth";
 
 
 async function signInWithGoogle(){
     // Sign in Firebase using popup auth and Google as the identity provider.
     const provider = new GoogleAuthProvider();
+    setPersistence(getAuth(), browserSessionPersistence)
     await signInWithPopup(getAuth(), provider);
 
 }
 
-function signOutUser() {
+const signOutUser = function() {
     // Sign out of Firebase.
     signOut(getAuth());
 }
 
+const loginCheck = function (){
+    console.log("loginCheck");
+    console.log(getAuth().currentUser);
+    console.log(getAuth().currentUser.displayName);
+}
 
-
-// signInWithRedirect(auth, provider);
-//
-// getRedirectResult(auth)
-//     .then((result) => {
-//         // This gives you a Google Access Token. You can use it to access Google APIs.
-//         const credential = GoogleAuthProvider.credentialFromResult(result);
-//         const token = credential.accessToken;
-//
-//         // The signed-in user info.
-//         const user = result.user;
-//     }).catch((error) => {
-//     // Handle Errors here.
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     // The email of the user's account used.
-//     const email = error.email;
-//     // The AuthCredential type that was used.
-//     const credential = GoogleAuthProvider.credentialFromError(error);
-//     // ...
-// });
-
-
-function writeUserData(userId, name, email, imageUrl) {
+const writeUserData = function (userId, name, email, imageUrl) {
     const db = getDatabase();
+    console.log("input")
     set(ref(db, 'users/' + userId), {
         username: name,
         email: email,
         profile_picture : imageUrl
     });
 }
-
-const LikedList = () => {
+// <Button variant="outlined" id="dbInput" sx={{ml:10}} onClick={writeUserData('aa-14','bb','cc','dd')} >asdf</Button>
+const Information = () => {
     return (
         <div>
-            <h1>홈</h1>
-            <p>가장 먼저 보여지는 페이지입니다.</p>
-            <Button variant="outlined" id="dbinput" sx={{ml:10}} onClick={writeUserData('aa-14','bb','cc','dd')} >asdf</Button>
+            <h1>내정보</h1>
+            <p>로그인 관련 처리 + 사용자 계정 정보</p>
 
+            <Button variant="outlined" id="dbInput" sx={{ml:10}} onClick={() => {writeUserData('aa-14','bb','cc','dd');}} >asdf</Button>
 
-            <Button variant="outlined" id="glogin" sx={{ml:10}} onClick={signInWithGoogle} >google Login</Button>
+            <Button variant="outlined" id="glogIn" sx={{ml:10}} onClick={signInWithGoogle} >google Login</Button>
 
-            <Button variant="outlined" id="glogin" sx={{ml:10}} onClick={signOutUser} >google Logout</Button>
+            <Button variant="outlined" id="glogOut" sx={{ml:10}} onClick={signOutUser} >google Logout</Button>
+
+            <Button variant="outlined" id="glogCheck" sx={{ml:10}} onClick={loginCheck} >login Check</Button>
         </div>
     );
 };
-export default LikedList;
+export default Information;

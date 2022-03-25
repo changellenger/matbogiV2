@@ -1,6 +1,6 @@
 {
   "rules": {
-    ".read": "true",  // 2022-4-13
-    ".write": "true",  // 2022-4-13
+    ".read": "true",
+    ".write": "'5VJKwNSrxFMOQj6aobOrcH3kjmr1' === auth.uid"
   }
 }

@@ -17,7 +17,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 //pages
 import {mainListItems, secondaryListItems} from './pages/listItems';
 import Maps from "./pages/Maps.js";
-import MyList from "./pages/MyList";
+import Influencer from "./pages/Influencer";
 import LikedList from "./pages/LikedList";
 import Information from "./pages/Information"
 
@@ -178,7 +178,7 @@ function DashboardContent() {
                     {/*<BrowserRouter>*/}
                     <Routes>
                         <Route path="/" element={<Maps/>} />
-                        <Route path="/mylist" element={<MyList />} />
+                        <Route path="/Influencer" element={<Influencer />} />
                         <Route path="/likedlist" element={<LikedList />} />
                         <Route path="/Information" element={<Information />} />
                     </Routes>

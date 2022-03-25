@@ -12,7 +12,7 @@ import {onAuthStateChanged , getAuth} from 'firebase/auth'
 
 const firebaseAppConfig = getFirebaseConfig();
 initializeApp(firebaseAppConfig);
-onAuthStateChanged(getAuth(), authStateObserver);
+//onAuthStateChanged(getAuth(), authStateObserver);
 
 ReactDOM.render(
   <React.StrictMode>

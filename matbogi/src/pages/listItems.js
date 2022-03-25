@@ -4,11 +4,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import MapIcon from '@mui/icons-material/Map';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import { Link } from 'react-router-dom';
 
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -21,7 +23,7 @@ export const mainListItems = (
         <Link to="/" style={{ textDecoration: 'none', color :'black' }}>
         <ListItemButton>
             <ListItemIcon>
-                <DashboardIcon/>
+                <MapIcon/>
             </ListItemIcon>
             <ListItemText primary="Maps"/>
         </ListItemButton>
@@ -71,9 +73,9 @@ export const secondaryListItems = (
         </Link>
         <ListItemButton>
             <ListItemIcon>
-                <AssignmentIcon/>
+                <LocalDiningIcon/>
             </ListItemIcon>
-            <ListItemText primary="Last quarter"/>
+            <ListItemText primary="My List"/>
         </ListItemButton>
         <ListItemButton>
             <ListItemIcon>
